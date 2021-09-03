@@ -1,0 +1,51 @@
+import math
+
+
+def dec_2_fact_string(nb):
+        
+    x = 1
+    stringz = []
+    finall =[]
+    
+    while nb > 0:
+        remain = nb % x
+        #append from the left side
+        stringz.insert(0,str(remain))
+        nb = nb // x
+        x += 1
+    
+    for p in stringz:
+        if int(p) > 9:
+            finall.append(chr(int(p) + 55))
+        else:
+            finall.append(p)
+            
+    
+    final = "".join(finall)
+    
+    return final
+
+
+def fact_string_2_dec(string):
+    arr = []
+
+    for z in string:
+            
+        if z.isalpha():
+            arr.append(ord(z) - 55)
+            
+        else:
+            arr.append(z)
+    
+    list = [int(a) for a in arr]
+    
+
+    length = len(arr)
+            
+
+    result = 0
+    
+    for i in range(1,length+1):
+        result += int(list[-i]) * math.factorial(i-1)
+    
+    return(result)
