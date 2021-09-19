@@ -1,0 +1,87 @@
+class RomanNumerals:
+
+    def to_roman(val):
+        thousands = val // 1000
+        fhundreds = (val % 1000) // 500
+        hundreds = (val % 1000 % 500) // 100
+        fifties = (val % 1000 % 500 % 100) // 50
+        tens = (val % 1000 % 500 % 100 % 50) // 10
+        fives = (val % 1000 % 500 % 100 % 50 % 10) // 5
+        ones = val % 1000 % 500 % 100 % 50 % 10 % 5
+
+        sp = ['IV', 'IX', 'XL', 'XC', 'CD', 'CM']
+        count = [0, 0, 0, 0, 0, 0]
+
+        # Special cases
+        # 4 = IV, 9 = IX, 40 = XL, 90 = XC, 400 = CD, 900 = CM
+
+        # If there is 9 or 4
+        if ones == 4:
+            ones -= 4
+            # if 4
+            if fives == 0:
+                count[0] += 1
+            # if 9
+            else:
+                count[1] += 1
+                fives -= 1
+        # If there is 90 or 40
+        if tens == 4:
+            tens -= 4
+            if fifties == 0:
+                count[2] += 1
+            else:
+                count[3] += 1
+                fifties -= 1
+        # If there is 900 or 400
+        if hundreds == 4:
+            hundreds -= 4
+            if fhundreds == 0:
+                count[4] += 1
+            else:
+                count[5] += 1
+                fhundreds -= 1
+
+
+
+        return "M" * thousands + (sp[5] * count[5] + "D" * fhundreds) + (sp[4] * count[4] + "C" * hundreds) + (
+                    sp[3] * count[3] + "L" * fifties) + (sp[2] * count[2] + "X" * tens) + (sp[1] * count[1] + "V" * fives) + (
+                           sp[0] * count[0] + "I" * ones)
+
+
+
+
+
+    def from_roman(roman_num):
+        #Eg XLIII
+        roman_num = list(roman_num)
+        comp = {"": 0 ,"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
+        sum = 0
+        for i in range(len(roman_num) - 1):
+            if roman_num[i] == "I" and roman_num[i + 1] == "V":
+                sum += 4
+                roman_num[i] = ""
+                roman_num[i+1] = ""
+            if roman_num[i] == "I" and roman_num[i + 1] == "X":
+                sum += 9
+                roman_num[i] = ""
+                roman_num[i + 1] = ""
+            if roman_num[i] == "X" and roman_num[i+1] == "L":
+                sum += 40
+                roman_num[i] = ""
+                roman_num[i + 1] = ""
+            if roman_num[i] == "X" and roman_num[i+1] == "C":
+                sum += 90
+                roman_num[i] = ""
+                roman_num[i + 1] = ""
+            if roman_num[i] == "C" and roman_num[i+1]== "D":
+                sum += 400
+                roman_num[i] = ""
+                roman_num[i + 1] = ""
+            if roman_num[i] == "C" and roman_num[i+1] == "M":
+                sum += 900
+                roman_num[i] = ""
+                roman_num[i + 1] = ""
+        for y in roman_num:
+            sum += comp[y]
+        return sum
