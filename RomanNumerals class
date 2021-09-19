@@ -1,6 +1,6 @@
 class RomanNumerals:
 
-    def to_roman(val):
+    def to_roman(self, val):
         thousands = val // 1000
         fhundreds = (val % 1000) // 500
         hundreds = (val % 1000 % 500) // 100
@@ -52,7 +52,7 @@ class RomanNumerals:
 
 
 
-    def from_roman(roman_num):
+    def from_roman(self, roman_num):
         #Eg XLIII
         roman_num = list(roman_num)
         comp = {"": 0 ,"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
